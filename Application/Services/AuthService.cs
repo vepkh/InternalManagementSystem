@@ -40,7 +40,7 @@ namespace InternalManagementSystem.Application.Services
                 Email = registerRequestDto.Email,
                 FullName = registerRequestDto.FullName,
                 IsActive = true,
-                CreatedDate = DateTime.UtcNow
+                CreatedDate = DateTime.Now
             };
 
             var result = await _userManager.CreateAsync(user, registerRequestDto.Password);
@@ -86,7 +86,7 @@ namespace InternalManagementSystem.Application.Services
 
             return new AuthResponseDto
             {
-                Email = user.Email,
+                Email = user.Email!,
                 FullName = user.FullName,
                 Role = primaryrole
             };
@@ -99,7 +99,7 @@ namespace InternalManagementSystem.Application.Services
             var accessToken = await _jwtService.GenerateAccessTokenAsync(user);
             var refreshTokenValue = _jwtService.GenerateRefreshToken();
             var accessTokenExpiry = _jwtService.GetAccessTokenExpiry();
-            var refreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+            var refreshTokenExpiry = DateTime.Now.AddDays(7);
 
             // Persist the refresh token so we can validate/revoke it later
             var refreshTokenEntity = new RefreshToken
@@ -145,7 +145,7 @@ namespace InternalManagementSystem.Application.Services
             if (storedToken.IsRevoked)
                 throw new UnauthorizedAccessException("This refresh token has been revoked.");
 
-            if (storedToken.ExpiresDate < DateTime.UtcNow)
+            if (storedToken.ExpiresDate < DateTime.Now)
                 throw new UnauthorizedAccessException("This refresh token has expired.");
 
             // Rotate: revoke the old token so it can't be reused

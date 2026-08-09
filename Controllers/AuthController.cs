@@ -1,7 +1,6 @@
 ﻿using InternalManagementSystem.Application.DTOs.Auth;
 using InternalManagementSystem.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
 namespace InternalManagementSystem.Controllers;
 
 

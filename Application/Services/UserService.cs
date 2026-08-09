@@ -80,7 +80,7 @@ namespace InternalManagementSystem.Application.Services
                 throw new InvalidOperationException("User is already deactivated.");
 
             user.IsActive = false;
-            user.UpdatedDate = DateTime.UtcNow;
+            user.UpdatedDate = DateTime.Now;
 
             await _userManager.UpdateAsync(user);// changes saves in sql database
 
@@ -104,7 +104,7 @@ namespace InternalManagementSystem.Application.Services
                 throw new InvalidOperationException("User is already active.");
 
             user.IsActive = true;
-            user.UpdatedDate = DateTime.UtcNow;
+            user.UpdatedDate = DateTime.Now;
 
             await _userManager.UpdateAsync(user);
 

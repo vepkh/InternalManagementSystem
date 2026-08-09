@@ -20,19 +20,19 @@ namespace InternalManagementSystem.Controllers
         {
             _userService = userService;
         }
-        [HttpGet]
+        [HttpGet("api/GetAllUSers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
 
-        [HttpPut("{id}/role")]
-        public async Task<IActionResult> UpdateRole(string id, [FromBody] UpdateUserRoleDto request)
+        [HttpPut("{userid}/Changerole")]
+        public async Task<IActionResult> UpdateRole(string userid, [FromBody] UpdateUserRoleDto request)
         {
             try
             {
-                var result = await _userService.UpdateUserRoleAsync(id, request.NewRole);
+                var result = await _userService.UpdateUserRoleAsync(userid, request.NewRole);
                 return Ok(result);
             }
             catch (KeyNotFoundException ex)
